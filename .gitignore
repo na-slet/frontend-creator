@@ -152,3 +152,4 @@ yarn-error.log*
 /.idea/frontend-creator.iml
 /.idea/modules.xml
 /.idea/vcs.xml
+/.idea/codeStyles/codeStyleConfig.xml
