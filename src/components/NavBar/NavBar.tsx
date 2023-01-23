@@ -13,7 +13,6 @@ import AuthDropdown from './AuthDropdown.tsx'
 
 
 const views = [
-  'Мои слёты',
   'Менеджер слётов',
   <Badge badgeContent={100} max={99} color="warning">
     Требуют подтверждения

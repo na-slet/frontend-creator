@@ -4,14 +4,14 @@ import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
-import {Badge, Container, Stack} from "@mui/material";
-
+import {Badge, Container, Stack, Paper} from "@mui/material";
+import ListView from "./ListView.tsx"
 
 export default function ListEvents() {
   return (
-    <Container maxWidth="xs">
-
-    </Container>
+    <Paper>
+      <ListView/>
+    </Paper>
   );
 }
 
