@@ -11,22 +11,25 @@ import LocalActivityIcon from '@mui/icons-material/LocalActivity';
 import EventIcon from '@mui/icons-material/Event';
 import EditIcon from '@mui/icons-material/Edit';
 import Button from "@mui/material/Button";
-import {Stack} from "@mui/material";
+import {Badge, Stack} from "@mui/material";
+import {useState} from "react";
+import axios from "axios";
 
-const events = [
-  {name: 'Файер 1', icon: true},
-  {name: 'Файер 2', icon:false},
-  {name: 'Еще какой то слёт', icon:true},
-  {name: 'Вобще лагерь', icon:true},
-  {name: 'Еще что то', icon:false},
-  {name: 'И что то еще', icon: true},
-]
+type Props = {
+  access_token: string
+}
 
-export default function ListView(){
+export default function ListView(props: Props){
+  const [events, setEvents] = useState([]);
+  axios.get('https://creator.backend.naslet.ru/user/events', {params:{
+    access_token:props.access_token
+    }}).then((resp)=>{
+      setEvents(resp.data)
+  })
   return (
     <List>
       {events.map((event)=>(
-        <ListItem
+        <ListItem key={event.name}
           secondaryAction={
             <Stack direction="row" alignItems="center" justifyContent="center" sx={{width: '100%'}} spacing={2}>
               <IconButton edge="end" aria-label="delete">
@@ -39,9 +42,11 @@ export default function ListView(){
           }
         >
           <ListItemAvatar>
-            <Avatar>
-              {(event.icon ? <EventIcon/> : <LocalActivityIcon/>)}
-            </Avatar>
+            <Badge badgeContent={event.num} max={99} color="primary">
+              <Avatar>
+                  {(event.icon ? <EventIcon/> : <LocalActivityIcon/>)}
+              </Avatar>
+            </Badge>
           </ListItemAvatar>
           <ListItemText
             primary={event.name}

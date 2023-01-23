@@ -14,9 +14,9 @@ import AuthDropdown from './AuthDropdown.tsx'
 
 const views = [
   'Менеджер слётов',
-  <Badge badgeContent={100} max={99} color="warning">
-    Требуют подтверждения
-  </Badge>
+  // <Badge badgeContent={100} max={99} color="warning">
+  //   Требуют подтверждения
+  // </Badge>
 ]
 
 export default function NavBar() {
@@ -34,7 +34,7 @@ export default function NavBar() {
               </Button>
             ))}
           </Stack>
-          <AuthDropdown/>
+          {/*<AuthDropdown/>*/}
         </Toolbar>
       </AppBar>
     </Box>

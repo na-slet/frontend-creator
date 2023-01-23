@@ -19,7 +19,7 @@ function App() {
       <NavBar/>
       {accessToken == 'login' ? <SignIn changeToken={updateToken}/>:null}
       {accessToken == 'register' ? <Register changeToken={updateToken}/>:null}
-      {accessToken != 'login' && accessToken != 'register' ? <EventManager/>:null}
+      {accessToken != 'login' && accessToken != 'register' ? <EventManager access_token={accessToken}/>:null}
     </div>
   );
 }

@@ -7,10 +7,13 @@ import Button from '@mui/material/Button';
 import {Badge, Container, Stack, Paper} from "@mui/material";
 import ListView from "./ListView.tsx"
 
-export default function ListEvents() {
+type Props = {
+  access_token: string
+}
+export default function ListEvents(props: Props) {
   return (
     <Paper>
-      <ListView/>
+      <ListView access_token={props.access_token}/>
     </Paper>
   );
 }
