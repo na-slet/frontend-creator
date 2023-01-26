@@ -5,9 +5,12 @@ import {useState} from "react";
 
 
 import EventManager from "./components/EventManager/EventManager.tsx";
+import AddEventPopup from "./components/AddEventPopup/AddEventPopup.tsx";
+import AddEventButton from "./components/AddEventPopup/AddEventButton.tsx";
 import { Grid, Container } from '@mui/material';
 function App() {
   const [accessToken, setAccessToken] = useState('login');
+  const [modelState, setModelState] = useState(false);
 
   function updateToken(token: string){
     console.log(token);
@@ -20,6 +23,8 @@ function App() {
       {accessToken == 'login' ? <SignIn changeToken={updateToken}/>:null}
       {accessToken == 'register' ? <Register changeToken={updateToken}/>:null}
       {accessToken != 'login' && accessToken != 'register' ? <EventManager access_token={accessToken}/>:null}
+      <AddEventButton onClick={()=>{setModelState(!modelState)}}/>
+      <AddEventPopup open={modelState}/>
     </div>
   );
 }
