@@ -22,7 +22,7 @@ type Props = {
 export default function ListView(props: Props){
   const [events, setEvents] = useState([]);
   axios.get('https://creator.backend.naslet.ru/user/events', {params:{
-    access_token:props.access_token
+    access_token: props.access_token
     }}).then((resp)=>{
       setEvents(resp.data)
   })
