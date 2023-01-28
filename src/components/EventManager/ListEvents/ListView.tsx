@@ -11,12 +11,13 @@ import LocalActivityIcon from '@mui/icons-material/LocalActivity';
 import EventIcon from '@mui/icons-material/Event';
 import EditIcon from '@mui/icons-material/Edit';
 import Button from "@mui/material/Button";
-import {Badge, Stack} from "@mui/material";
+import {Badge, ListItemButton, Stack} from "@mui/material";
 import {useState} from "react";
 import axios from "axios";
 
 type Props = {
   access_token: string
+  onChoose: (event_id: string)=>void
 }
 
 export default function ListView(props: Props){
@@ -29,7 +30,8 @@ export default function ListView(props: Props){
   return (
     <List>
       {events.map((event)=>(
-        <ListItem key={event.name}
+        <ListItem
+          key={event.name}
           secondaryAction={
             <Stack direction="row" alignItems="center" justifyContent="center" sx={{width: '100%'}} spacing={2}>
               <IconButton edge="end" aria-label="delete">
@@ -41,16 +43,18 @@ export default function ListView(props: Props){
             </Stack>
           }
         >
-          <ListItemAvatar>
-            <Badge badgeContent={event.num} max={99} color="primary">
-              <Avatar>
+          <ListItemButton onClick={()=>{props.onChoose(event.id)}}>
+            <ListItemAvatar>
+              <Badge badgeContent={event.num} max={99} color="primary">
+                <Avatar>
                   {(event.icon ? <EventIcon/> : <LocalActivityIcon/>)}
-              </Avatar>
-            </Badge>
-          </ListItemAvatar>
-          <ListItemText
-            primary={event.name}
-          />
+                </Avatar>
+              </Badge>
+            </ListItemAvatar>
+            <ListItemText
+              primary={event.name}
+            />
+          </ListItemButton>
         </ListItem>
       ))}
     </List>
