@@ -7,10 +7,12 @@ import {useState} from "react";
 import EventManager from "./components/EventManager/EventManager.tsx";
 import AddEventPopup from "./components/EventPopup/AddEventPopup.tsx";
 import AddEventButton from "./components/EventPopup/AddEventButton.tsx";
+import PaymentPopup from "./components/EventManager/ListEvents/PaymentPopup.tsx";
 import { Grid, Container } from '@mui/material';
 function App() {
   const [accessToken, setAccessToken] = useState('login');
   const [modelState, setModelState] = useState(false);
+  const [paymentLocation, setPaymentLocation] = useState(null);
 
   function updateToken(token: string){
     console.log(token);
@@ -22,9 +24,10 @@ function App() {
       <NavBar/>
       {accessToken == 'login' ? <SignIn changeToken={updateToken}/>:null}
       {accessToken == 'register' ? <Register changeToken={updateToken}/>:null}
-      {accessToken != 'login' && accessToken != 'register' ? <EventManager access_token={accessToken}/>:null}
+      {accessToken != 'login' && accessToken != 'register' ? <EventManager onPaymentPopup={(location: string)=>{setPaymentLocation(location)}} access_token={accessToken}/>:null}
       <AddEventButton onClick={()=>{setModelState(!modelState)}}/>
       <AddEventPopup open={modelState} access_token={accessToken} setOpen={setModelState}/>
+      <PaymentPopup open={paymentLocation} setOpen={setPaymentLocation} access_token={accessToken}/>
     </div>
   );
 }

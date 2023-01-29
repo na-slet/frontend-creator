@@ -5,7 +5,8 @@ import * as React from "react";
 import {useState} from "react";
 
 type Props = {
-	access_token: string
+	access_token: string,
+	onPaymentPopup: (location: string) => void
 }
 function EventManager(props: Props) {
 	const [eventId, setEventId] = useState(null);
@@ -18,7 +19,7 @@ function EventManager(props: Props) {
 					</Paper>
 				</Grid>
 				<Grid item xs={9}>
-					{(eventId ? <ListUsers access_token={props.access_token} event_id={eventId}/> : null)}
+					{(eventId ? <ListUsers onPaymentPopup={props.onPaymentPopup} access_token={props.access_token} event_id={eventId}/> : null)}
 				</Grid>
 			</Grid>
 		</Container>
