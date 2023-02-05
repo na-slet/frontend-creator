@@ -15,7 +15,7 @@ import DoneIcon from '@mui/icons-material/Done';
 import OpenInFullIcon from '@mui/icons-material/OpenInFull';
 import ClearIcon from '@mui/icons-material/Clear';
 import {Badge, Paper, Stack, Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from "@mui/material";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import axios from "axios";
 
 type Props = {
@@ -24,20 +24,25 @@ type Props = {
 	onPaymentPopup: (location: string) => void,
 }
 
-function approveUser(access_token: string, user_id: string){
-	axios.put('https://creator.backend.naslet.ru/user/event/status', null,{params:{
+function approveUser(access_token: string, user_id: string, event_id: string){
+	axios.put('https://creator.backend.naslet.ru/user/event/status', {
+		"event_id": event_id,
+		"user_id": user_id,
+		"stage": "APPROVED"
+	},{params:{
 			access_token: access_token,
-			id: user_id,
-			stage: 'APPROVED'
 		}}).then((e)=>{
 			console.log(e)
+	}).catch((e)=>{
+		console.log(e)
 	})
 }
-function declineUser(access_token: string, user_id: string){
-	axios.put('https://creator.backend.naslet.ru/user/event/status', null,{params:{
+function kickUser(access_token: string, user_id: string, event_id: string){
+	axios.post('https://creator.backend.naslet.ru/user/event/kick', {
+		"event_id": event_id,
+		"user_id": user_id
+	},{params:{
 			access_token: access_token,
-			id: user_id,
-			stage: 'DECLINED'
 		}}).then((e)=>{
 			console.log(e)
 	})
@@ -53,7 +58,9 @@ function updateUsers(access_token: string, event_id: string, setUsers: (el)=>voi
 
 export default function ListUsers(props: Props){
 	const [users, setUsers] = useState([]);
-	updateUsers(props.access_token, props.event_id, setUsers);
+	useEffect(()=>{
+		updateUsers(props.access_token, props.event_id, setUsers);
+	},[]);
 	return (
 		<TableContainer component={Paper}>
 			<Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -97,7 +104,7 @@ export default function ListUsers(props: Props){
 										variant="contained"
 										startIcon={<DoneIcon />}
 										disabled={row.participation.participation_stage != 'PAYMENT_PENDING'}
-										onClick={()=>{approveUser(props.access_token, row.user.id)}}
+										onClick={()=>{approveUser(props.access_token, row.user.id, props.event_id)}}
 									>
 										Принять
 									</Button>
@@ -106,7 +113,7 @@ export default function ListUsers(props: Props){
 										variant="contained"
 										startIcon={<ClearIcon />}
 										disabled={row.participation.participation_stage == 'DECLINED'}
-										onClick={()=>{declineUser(props.access_token, row.user.id)}}
+										onClick={()=>{kickUser(props.access_token, row.user.id, props.event_id)}}
 									>
 										Отклонить
 									</Button>

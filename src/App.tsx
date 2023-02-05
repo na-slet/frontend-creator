@@ -9,6 +9,7 @@ import AddEventPopup from "./components/EventPopup/AddEventPopup.tsx";
 import AddEventButton from "./components/EventPopup/AddEventButton.tsx";
 import PaymentPopup from "./components/EventManager/ListEvents/PaymentPopup.tsx";
 import { Grid, Container } from '@mui/material';
+import EditEventPopup from "./components/EventManager/ListEvents/EditEventPopup";
 function App() {
   const [accessToken, setAccessToken] = useState('login');
   const [modelState, setModelState] = useState(false);
