@@ -66,21 +66,32 @@ export default function ListUsers(props: Props){
 			<Table sx={{ minWidth: 650 }} aria-label="simple table">
 				<TableHead>
 					<TableRow>
-						<TableCell>ФИО участника</TableCell>
+						<TableCell>№ участника</TableCell>
+
+						<TableCell align="center">ФИО участника</TableCell>
 						<TableCell align="center">Аватар</TableCell>
 						<TableCell align="center">Телефон</TableCell>
 						<TableCell align="center">Email</TableCell>
+
+						<TableCell align="center">Телефон родителя</TableCell>
+						<TableCell align="center">ФИО родителя</TableCell>
+						<TableCell align="center">Город</TableCell>
+						<TableCell align="center">Дата рождения</TableCell>
+
 						<TableCell align="center">Статус</TableCell>
 						<TableCell align="center">Действия</TableCell>
 					</TableRow>
 				</TableHead>
-				<TableBody>
-					{users.map((row) => (
+				<TableBody >
+					{users.map((row,idx) => (
 						<TableRow
 							key={row.user.phone}
 							sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
 						>
 							<TableCell component="th" scope="row">
+								{idx}
+							</TableCell>
+							<TableCell align="center">
 								{row.user.first_name + ' ' + row.user.last_name}
 							</TableCell>
 							<TableCell align="center">
@@ -96,6 +107,10 @@ export default function ListUsers(props: Props){
 							</TableCell>
 							<TableCell align="center">{row.user.phone}</TableCell>
 							<TableCell align="center">{row.user.email}</TableCell>
+							<TableCell align="center">{row.user.parent_phone}</TableCell>
+							<TableCell align="center">{row.user.parent_fio}</TableCell>
+							<TableCell align="center">{row.user.city}</TableCell>
+							<TableCell align="center">{row.user.birth_date}</TableCell>
 							<TableCell align="center">{row.participation.participation_stage}</TableCell>
 							<TableCell align="center">
 								<Stack spacing={1} alignItems='center'>
