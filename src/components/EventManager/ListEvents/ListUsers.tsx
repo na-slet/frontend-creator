@@ -119,7 +119,11 @@ export default function ListUsers(props: Props){
 										variant="contained"
 										startIcon={<DoneIcon />}
 										disabled={row.participation.participation_stage != 'PAYMENT_PENDING'}
-										onClick={()=>{approveUser(props.access_token, row.user.id, props.event_id)}}
+										onClick={() => {
+											if (window.confirm("Вы точно хотите принять этого пользователя?")) {
+											  approveUser(props.access_token, row.user.id, props.event_id);
+											}
+										  }}
 									>
 										Принять
 									</Button>
@@ -128,7 +132,11 @@ export default function ListUsers(props: Props){
 										variant="contained"
 										startIcon={<ClearIcon />}
 										disabled={row.participation.participation_stage == 'DECLINED'}
-										onClick={()=>{kickUser(props.access_token, row.user.id, props.event_id)}}
+										onClick={() => {
+											if (window.confirm("Вы точного хотите отклонить этого пользователя?")) {
+											  kickUser(props.access_token, row.user.id, props.event_id);
+											}
+										}}
 									>
 										Отклонить
 									</Button>

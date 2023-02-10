@@ -48,7 +48,9 @@ function EventManager(props: Props) {
 						{events.length != 0 ?
 							<Paper>
 								<ListEvents access_token={props.access_token} events={events} onDelete={(event_id: string) => {
-									deleteEvent(props.access_token, event_id, setEvents)
+									if (window.confirm("Вы точно хотите удалить мероприятие?")){
+										deleteEvent(props.access_token, event_id, setEvents);
+								}
 								}} onChoose={(event_id: string) => {
 									setEventId(event_id);
 									console.log(event_id)
